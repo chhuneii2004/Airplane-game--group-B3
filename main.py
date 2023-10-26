@@ -88,6 +88,20 @@ def move_bullet(bullet):
         canvas.delete(bullet)
 
 
+def check_collision(bullet):
+    bullet_coords = canvas.coords(bullet)
+    enemies = canvas.find_withtag("enemy")
+    for enemy in enemies:
+        enemy_coords = canvas.coords(enemy)
+        if (bullet_coords[0] > enemy_coords[0] - ENEMY_WIDTH // 2 and
+                bullet_coords[0] < enemy_coords[0] + ENEMY_WIDTH // 2 and
+                bullet_coords[1] > enemy_coords[1] - ENEMY_HEIGHT // 2 and
+                bullet_coords[1] < enemy_coords[1] + ENEMY_HEIGHT // 2):
+            canvas.delete(bullet)
+            canvas.delete(enemy)
+            update_score(1)  # Increase score by 1
+            
+
 def create_enemy():
     x = random.randint(ENEMY_WIDTH // 2, SCREEN_WIDTH - ENEMY_WIDTH // 2)
     enemy = canvas.create_image(x, ENEMY_HEIGHT // 2, image=enemy_img, tags="enemy")
