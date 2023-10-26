@@ -71,6 +71,23 @@ def move_player(event):
         canvas.move(player, 0, PLAYER_SPEED)
 
 
+def create_bullet():
+    x = canvas.coords(player)[0]
+    y = canvas.coords(player)[1]
+    bullet = canvas.create_image(x, y - PLAYER_HEIGHT // 2, image=bullet_img, tags="bullet")
+    move_bullet(bullet)
+    shotSound()
+
+def move_bullet(bullet):
+    bullet_coords = canvas.coords(bullet)
+    if bullet_coords[1] > -BULLET_HEIGHT:
+        canvas.move(bullet, 0, -BULLET_SPEED)
+        check_collision(bullet)  # Check collision with enemies
+        root.after(10, move_bullet, bullet)
+    else:
+        canvas.delete(bullet)
+
+
 canvas.pack(expand=True, fill='both')
 frame.pack(expand=True, fill='both')
 root.mainloop()
