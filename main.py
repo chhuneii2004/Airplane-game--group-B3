@@ -100,7 +100,14 @@ def check_collision(bullet):
             canvas.delete(bullet)
             canvas.delete(enemy)
             update_score(1)  # Increase score by 1
-            
+
+
+
+def update_score(points):
+    global score
+    score += points
+    score_label.config(text="Score: " + str(score))
+    
 
 def create_enemy():
     x = random.randint(ENEMY_WIDTH // 2, SCREEN_WIDTH - ENEMY_WIDTH // 2)
