@@ -88,6 +88,27 @@ def move_bullet(bullet):
         canvas.delete(bullet)
 
 
+def create_enemy():
+    x = random.randint(ENEMY_WIDTH // 2, SCREEN_WIDTH - ENEMY_WIDTH // 2)
+    enemy = canvas.create_image(x, ENEMY_HEIGHT // 2, image=enemy_img, tags="enemy")
+    move_enemy(enemy)
+
+def move_enemy(enemy):
+    enemy_coords = canvas.coords(enemy)
+    if enemy_coords[1] < SCREEN_HEIGHT + ENEMY_HEIGHT // 2:
+        canvas.move(enemy, 0, ENEMY_SPEED)
+        root.after(10, move_enemy, enemy)
+    else:
+        canvas.delete(enemy)
+
+def create_multiple_enemies():
+    for _ in range(1):  # Spawn 1 enemy
+        create_enemy()
+    root.after(2000, create_multiple_enemies)  # Create enemies every 2 seconds
+
+
+
+
 canvas.pack(expand=True, fill='both')
 frame.pack(expand=True, fill='both')
 root.mainloop()
