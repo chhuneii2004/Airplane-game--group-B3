@@ -48,6 +48,29 @@ enemy_img = ImageTk.PhotoImage(enemy_img)
 score_label = tk.Label(root, text="Score: 0", font=("Arial", 14))
 score_label.pack()
 
+# Create start game screen
+def start_game():
+    start_label.destroy()
+    start_button.destroy()
+    root.bind("<Left>", move_player)
+    root.bind("<Right>", move_player)
+    root.bind("<Up>", move_player)
+    root.bind("<Down>", move_player)
+    root.bind("<space>", lambda event: create_bullet())
+    create_multiple_enemies()
+
+
+def move_player(event):
+    if event.keysym == "Left" and canvas.coords(player)[0] > PLAYER_WIDTH // 2:
+        canvas.move(player, -PLAYER_SPEED, 0)
+    elif event.keysym == "Right" and canvas.coords(player)[0] < SCREEN_WIDTH - PLAYER_WIDTH // 2:
+        canvas.move(player, PLAYER_SPEED, 0)
+    elif event.keysym == "Up" and canvas.coords(player)[1] > PLAYER_HEIGHT // 2:
+        canvas.move(player, 0, -PLAYER_SPEED)
+    elif event.keysym == "Down" and canvas.coords(player)[1] < SCREEN_HEIGHT - PLAYER_HEIGHT // 2:
+        canvas.move(player, 0, PLAYER_SPEED)
+
+
 canvas.pack(expand=True, fill='both')
 frame.pack(expand=True, fill='both')
 root.mainloop()
