@@ -60,6 +60,12 @@ def start_game():
     create_multiple_enemies()
 
 
+start_label = tk.Label(root, text="wellcome to skyfall game", font=("Arial", 20))
+start_label.pack(pady=50)
+start_button = tk.Button(root, text="Start", font=("Arial", 16), command=start_game)
+start_button.pack()
+
+
 def move_player(event):
     if event.keysym == "Left" and canvas.coords(player)[0] > PLAYER_WIDTH // 2:
         canvas.move(player, -PLAYER_SPEED, 0)
@@ -128,7 +134,8 @@ def create_multiple_enemies():
     root.after(2000, create_multiple_enemies)  # Create enemies every 2 seconds
 
 
-
+def shotSound():
+    winsound.PlaySound("sound/cat.wav", winsound.SND_ASYNC)
 
 canvas.pack(expand=True, fill='both')
 frame.pack(expand=True, fill='both')
