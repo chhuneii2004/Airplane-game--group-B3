@@ -135,7 +135,7 @@ def create_multiple_enemies():
 
 
 def shotSound():
-    winsound.PlaySound("sound/cat.wav", winsound.SND_ASYNC)
+    winsound.PlaySound("sound/shot.wav", winsound.SND_ASYNC)
 
 canvas.pack(expand=True, fill='both')
 root.mainloop()
